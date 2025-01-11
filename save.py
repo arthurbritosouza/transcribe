@@ -25,17 +25,19 @@ prompt = st.text_area("Digite seu prompt (opcional)", placeholder="Escreva um co
 
 # Botão para processar
 if st.button("Transcrever"):
-    # if audio_file:
-    #     if audio_file is not None:
-    #         os.makedirs("audios", exist_ok=True)
-    #         name_file = os.path.join("audios", audio_file.name)
-    #         # Salvar o arquivo no diretório local
-    #         with open(name_file, "wb") as f:
-    #             f.write(audio_file.getbuffer())  # Salva o arquivo no mesmo nome original
-    #         st.success(f"Arquivo {name_file} salvo com sucesso!")
+    if audio_file:
+        if audio_file is not None:
+            os.makedirs("audios", exist_ok=True)
+            name_file = os.path.join("audios", audio_file.name)
+            # Salvar o arquivo no diretório local
+            with open(name_file, "wb") as f:
+                f.write(audio_file.getbuffer())  # Salva o arquivo no mesmo nome original
+            st.success(f"Arquivo {name_file} salvo com sucesso!")
             
         st.info("📤 Processando seu áudio e prompt...")
-        response = transcribe_audio(audio_file, prompt)
+        response = transcribe_audio(name_file, prompt)
         st.success("✅ Transcrição concluída!")
         st.write("Resultado da transcrição:")
         st.write(response)
+    else:
+        st.warning("⚠️ Por favor, carregue um arquivo de áudio antes de continuar.")
