@@ -36,7 +36,6 @@ def transcribe_audio(uploaded_file,user_input):
             # Carregar o arquivo WAV temporário com Whisper
             result = model.transcribe(tmp_wav_file.name)
             transcription = result["text"]
-            st.write("Transcrição:", transcription)
     except Exception as e:
         st.error(f"Erro ao transcrever o áudio: {e}")
 
@@ -45,7 +44,6 @@ def transcribe_audio(uploaded_file,user_input):
         genai.configure(api_key='AIzaSyAjZk_OOAtqvSCC1yp7cyL7X_suj80H0Jk')
         model = genai.GenerativeModel("gemini-1.5-flash") 
         response = model.generate_content(f"Você é um assistente que resume a transcrição de um áudio, fornecendo informações de forma clara e objetiva. Transcrição: {transcription},Pergunta: {user_input}")
-        print("Resumo gerado:", response.text)
     except Exception as e:
         print(f"Erro ao usar o modelo generativo: {e}")
     
